@@ -1,17 +1,24 @@
 "use client";
 
-import { Sparkle, Map, MessageSquare } from "lucide-react";
+import { Sparkle, Map, MessageSquare, Shield } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
 import {
     // SignedIn,
     // SignedOut,
+    useUser,
     SignInButton,
     UserButton,
 } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function Navbar(){
+    const { isSignedIn, isLoaded } = useUser();
+
+    if (!isLoaded){ 
+        return null;
+    }
+
     return <nav className="border-b bg-background">
         <div className="container mx-auto flex h-16 items-justify justify-between px-4">
             <div className="flex items-center gap-6">
@@ -35,15 +42,25 @@ export default function Navbar(){
                     <MessageSquare className="h-4 w-4" />
                     feedback
                 </Link>
+                {isSignedIn && (
+                    <Link href="/admin" className="text-sm hover:text-primary transition-colors flex items-center gap-1">
+                        <Shield className="h-4 w-4" />
+                        Admin
+                    </Link>
+                )}
             </div>
             <div className="flex items-center gap-4 ">
                 <ThemeToggle />
-                {/* <SignedOut> */}
+                    
+                {!isSignedIn ? (
                     <SignInButton>
-                        <Button asChild><Link href="/sign-in"> Sign In</Link></Button>
+                        <Button asChild>
+                            <Link href="/sign-in">Sign In</Link>
+                        </Button>
                     </SignInButton>
-
-                {/* </SignedOut> */}
+                ) : (
+                    <UserButton />
+                )}
             </div>
         </div>
     </nav>
