@@ -3,13 +3,7 @@
 import { Sparkle, Map, MessageSquare, Shield } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
-import {
-    // SignedIn,
-    // SignedOut,
-    useUser,
-    SignInButton,
-    UserButton,
-} from "@clerk/nextjs";
+import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function Navbar(){
