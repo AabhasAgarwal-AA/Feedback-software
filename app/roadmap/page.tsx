@@ -7,8 +7,8 @@ import { STATUS_GROUPS, STATUS_ORDER } from "../data/status-data";
 import { Badge } from "@/components/ui/badge";
 
 function getStatusPercentage(posts: any, status: string){
-    const total = posts.lenght; 
-    const count = posts.filter((p: any) => p.status === status);
+    const total = posts.length; 
+    const count = posts.filter((p: any) => p.status === status).length;
     return total > 0 ? Math.round(count/total * 100): 0;
 }
 
